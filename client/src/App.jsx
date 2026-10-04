@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { runResearch, getHistory, getResearch } from "./api/research";
+import { runResearch, getHistory, getResearch ,wakeServer} from "./api/research";
 
 
 const TABS = [
