@@ -1,10 +1,16 @@
 import express from "express";
 import { runPipeline } from "../pipeline.js";
 import Research from "../models/Research.js";
+import rateLimit from "express-rate-limit";
 
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000,
+  max: 10,
+  message: { error: "Too many requests, try again later" },
+});
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/", limiter, async (req, res) => {
   const { topic } = req.body;
   if (!topic || !topic.trim()) {
     return res.status(400).json({ error: "topic is required" });
