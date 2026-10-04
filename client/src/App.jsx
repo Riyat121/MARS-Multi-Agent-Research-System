@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { runResearch, getHistory, getResearch } from "./api/research";
+import { runResearch, getHistory, getResearch, wakeServer } from "./api/research";
 
 const TABS = [
   ["finalDraft", "Final Report"],
@@ -24,7 +25,7 @@ export default function App() {
   const [copied, setCopied] = useState(false);
 
   const loadHistory = () => getHistory().then(setHistory).catch(() => {});
-  useEffect(() => { loadHistory(); }, []);
+  useEffect(() => { wakeServer(); loadHistory(); }, []);
 
   // estimated progress (backend streaming nahi karta)
   useEffect(() => {
